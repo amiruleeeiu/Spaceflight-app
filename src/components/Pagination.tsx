@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-function Pagination({ total, currentPage, setCurrentPage }) {
+interface PaginationProps {
+  total: number;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+}
+
+function Pagination({ total, currentPage, setCurrentPage }: PaginationProps) {
   const page = Math.ceil(total / 9);
 
   const buttonElements = [];

@@ -1,4 +1,7 @@
-function SpaceFlight({ product }) {
+import React from "react";
+import { SpaceFlightPropsType } from "../interfaces/SpaceFlightInterface";
+
+const SpaceFlight: React.FC<SpaceFlightPropsType> = ({ product }) => {
   const { mission_name, launch_date_local, rocket, launch_success, links } =
     product;
 
@@ -30,6 +33,6 @@ function SpaceFlight({ product }) {
       </div>
     </div>
   );
-}
+};
 
 export default SpaceFlight;

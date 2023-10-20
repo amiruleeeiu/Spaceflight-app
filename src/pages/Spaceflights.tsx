@@ -3,10 +3,14 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import SpaceFlight from "../components/SpaceFlight";
 import Select from "../components/bootstrap/Select";
-import { SpaceFlightContext } from "../context/SpaceFlightContext";
+import { SpaceFlightContext } from "../context/SpaceFlight";
+import {
+  SpaceFlightInterface,
+  searchFieldsInterface,
+} from "../interfaces/SpaceFlightInterface";
 import { dateList, statusList } from "../staticData";
 
-const searchFieldsName = {
+const searchFieldsName: searchFieldsInterface = {
   upcoming: "",
   rocket_name: "",
   launch_date: "",
@@ -16,13 +20,16 @@ const searchFieldsName = {
 
 function Spaceflights() {
   const [spaceflights, setSpaceflights] = useState([]);
-  const { loader, allSpaceFlights } = useContext(SpaceFlightContext);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { loader, allSpaceFlights }: any = useContext(SpaceFlightContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [searchFields, setSearchFields] = useState(searchFieldsName);
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState("");
+
+  console.log(allSpaceFlights);
 
   useEffect(() => {
     let filteredSpaceflights = allSpaceFlights;
@@ -31,54 +38,62 @@ function Spaceflights() {
 
     // filter by launch status
     if (launch_status) {
-      let success;
+      let success: boolean | undefined;
       if (launch_status === "1") {
         success = false;
       } else if (launch_status === "2") {
         success = true;
       }
       filteredSpaceflights = filteredSpaceflights.filter(
-        (i) => i?.launch_success === success
+        (i: SpaceFlightInterface) => i?.launch_success === success
       );
     }
 
     // filter by launch date
     if (launch_date) {
-      let currentDate = new Date();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let currentDate: any = new Date();
+
+      console.log(typeof currentDate);
 
       if (launch_date === "1") {
         currentDate = new Date(currentDate - 7 * 24 * 60 * 60 * 1000);
+        console.log(typeof currentDate);
       } else if (launch_date === "2") {
         currentDate = new Date(currentDate - 30 * 24 * 60 * 60 * 1000);
       } else if (launch_date === "3") {
         currentDate = new Date(currentDate - 365 * 24 * 60 * 60 * 1000);
       }
 
-      filteredSpaceflights = filteredSpaceflights.filter((item) => {
-        return new Date(item.launch_date_local) >= new Date(currentDate);
-      });
+      filteredSpaceflights = filteredSpaceflights.filter(
+        (item: SpaceFlightInterface) => {
+          return new Date(item.launch_date_local) >= new Date(currentDate);
+        }
+      );
     }
 
     // filter by upcoming
     if (upcoming === true || upcoming === false) {
       filteredSpaceflights = filteredSpaceflights.filter(
-        (item) => item?.upcoming === upcoming
+        (item: SpaceFlightInterface) => item?.upcoming === upcoming
       );
     }
 
     // search by rocket name
     if (rocket_name) {
-      filteredSpaceflights = filteredSpaceflights.filter((i) => {
-        if (
-          i?.rocket?.rocket_name
-            ?.toLowerCase()
-            .includes(rocket_name.toLowerCase())
-        ) {
-          return true;
-        } else {
-          return false;
+      filteredSpaceflights = filteredSpaceflights.filter(
+        (i: SpaceFlightInterface) => {
+          if (
+            i?.rocket?.rocket_name
+              ?.toLowerCase()
+              .includes(rocket_name.toLowerCase())
+          ) {
+            return true;
+          } else {
+            return false;
+          }
         }
-      });
+      );
     }
     setTotal(filteredSpaceflights.length);
     const startindex = 9 * (currentPage - 1);
@@ -86,7 +101,7 @@ function Spaceflights() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchFields, allSpaceFlights]);
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
@@ -95,18 +110,20 @@ function Spaceflights() {
     setSearchFields({ ...searchFields, rocket_name: searchValue, page: 1 });
   };
 
-  const handleEnterSearch = (e) => {
+  const handleEnterSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setCurrentPage(1);
     if (e.target.name === "upcoming") {
       setSearchFields({
         ...searchFields,
-        [e.target.name]: e.target.checked,
+        [e.target.name]: (e.target as HTMLInputElement).checked,
         page: 1,
       });
     } else {
@@ -132,6 +149,7 @@ function Spaceflights() {
       console.log(params);
       setCurrentPage(Number(params.page));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let content = null;
