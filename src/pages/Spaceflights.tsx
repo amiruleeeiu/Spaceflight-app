@@ -29,8 +29,6 @@ function Spaceflights() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState("");
 
-  console.log(allSpaceFlights);
-
   useEffect(() => {
     let filteredSpaceflights = allSpaceFlights;
 
@@ -54,11 +52,8 @@ function Spaceflights() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let currentDate: any = new Date();
 
-      console.log(typeof currentDate);
-
       if (launch_date === "1") {
         currentDate = new Date(currentDate - 7 * 24 * 60 * 60 * 1000);
-        console.log(typeof currentDate);
       } else if (launch_date === "2") {
         currentDate = new Date(currentDate - 30 * 24 * 60 * 60 * 1000);
       } else if (launch_date === "3") {
@@ -146,7 +141,6 @@ function Spaceflights() {
   useEffect(() => {
     if (search) {
       const params = Object.fromEntries([...searchParams]);
-      console.log(params);
       setCurrentPage(Number(params.page));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -173,8 +167,6 @@ function Spaceflights() {
       <SpaceFlight product={p} key={index} />
     ));
   }
-
-  console.log(searchFields);
 
   return (
     <div className="container my-5">
