@@ -16,7 +16,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [[http://localhost:5173](http://localhost:5173/)] to view it in your browser.
 
-I am using react ,bootstrap & bootstrap icons, i don't use scss because i don't need to write more custom css.
+I am using typescript, react ,bootstrap & bootstrap icons, i don't use scss because i don't need to write more custom css.
 
 
 
