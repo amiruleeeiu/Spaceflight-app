@@ -1,9 +1,11 @@
-# Getting Started with Create React App and Redux
+# React + TypeScript + Vite
 
-This project was bootstrapped with the following:
-- [Create React App](https://github.com/facebook/create-react-app)
-- Using the [Redux](https://redux.js.org/)
-- [Redux Toolkit](https://redux-toolkit.js.org/) template.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC]
 
 ## Available Scripts
 
