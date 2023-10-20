@@ -13,8 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.card {
+  min-height: 400px;
+}
 
-p{
+p {
   font-size: 16px;
   font-weight: 400;
   color: gray;

@@ -13,7 +13,7 @@ function Pagination({
 
   const [startPage, setStartPage] = useState(1);
 
-  for (let i = startPage; i <= startPage + 5; i++) {
+  for (let i = startPage; i <= (total >= 6 * 9 ? startPage + 5 : page); i++) {
     buttonElements.push(
       <button
         key={i}
@@ -70,7 +70,7 @@ function Pagination({
                 ...
               </Button>
             )}
-            {startPage + 5 !== page && (
+            {startPage + 5 !== page && page > 6 && (
               <Button
                 className={`${
                   currentPage == page ? "btn-primary" : "btn-light "
