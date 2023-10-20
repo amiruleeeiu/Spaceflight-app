@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import SpaceFlight from "../components/SpaceFlight";
+import Button from "../components/bootstrap/Button";
 import Select from "../components/bootstrap/Select";
-import { SpaceFlightContext } from "../context/SpaceFlight";
+import { SpaceFlightContext } from "../context/SpaceFlightContext";
 import {
   SpaceFlightInterface,
   searchFieldsInterface,
@@ -184,9 +185,11 @@ function Spaceflights() {
               onChange={handleSearchChange}
               onKeyDown={handleEnterSearch}
             />
-            <button className="btn btn-primary" onClick={handleSearch}>
-              <i className="bi bi-search"></i>
-            </button>
+            <Button
+              className="btn-primary"
+              onClick={handleSearch}
+              icon="search"
+            />
           </div>
         </div>
         <div className="col-lg-5">

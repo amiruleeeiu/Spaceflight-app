@@ -27,3 +27,17 @@ export interface searchFieldsInterface {
   launch_status: string;
   page: number;
 }
+
+export interface PaginationPropsType {
+  total: number;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+}
+
+export interface ButtonPropsType {
+  onClick?: () => void;
+  disabled?: boolean;
+  icon?: string;
+  className?: string;
+  children?: string | number;
+}

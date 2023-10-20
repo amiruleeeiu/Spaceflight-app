@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { PaginationPropsType } from "../interfaces/SpaceFlightInterface";
+import Button from "./bootstrap/Button";
 
-interface PaginationProps {
-  total: number;
-  currentPage: number;
-  setCurrentPage: (page: number) => void;
-}
-
-function Pagination({ total, currentPage, setCurrentPage }: PaginationProps) {
+function Pagination({
+  total,
+  currentPage,
+  setCurrentPage,
+}: PaginationPropsType) {
   const page = Math.ceil(total / 9);
 
   const buttonElements = [];
@@ -40,48 +40,39 @@ function Pagination({ total, currentPage, setCurrentPage }: PaginationProps) {
     }
   };
 
-  // const handleNextPage = () => {
-  //   setCurrentPage(currentPage + 1);
-  //   if (startPage + 6 < page) {
-  //     setStartPage(startPage + 1);
-  //   }
-  // };
+  const handleNextPage = (n: number) => {
+    setCurrentPage(currentPage + 1);
+    if (startPage + n < page) {
+      setStartPage(startPage + 1);
+    }
+  };
 
   return (
     <div className="text-center my-3">
       <div className="">
         {total >= 9 && (
           <div className="d-flex justify-content-center align-items-center">
-            <button
-              className={`btn btn-light`}
+            <Button
+              className="btn-light"
               onClick={handlePreviousPage}
               disabled={currentPage == 1}
-            >
-              <i className="bi bi-chevron-left"></i>
-            </button>
+              icon="leftArrow"
+            />
             {startPage > 1 && (
-              <button className="btn btn-light" onClick={handlePreviousPage}>
+              <Button className="btn btn-light" onClick={handlePreviousPage}>
                 ...
-              </button>
+              </Button>
             )}
             {buttonElements}
 
             {page > 6 && startPage + 6 < page && (
-              <button
-                className="btn btn-light"
-                onClick={() => {
-                  setCurrentPage(currentPage + 1);
-                  if (startPage + 5 < page) {
-                    setStartPage(startPage + 1);
-                  }
-                }}
-              >
+              <Button className="btn-light" onClick={() => handleNextPage(5)}>
                 ...
-              </button>
+              </Button>
             )}
             {startPage + 5 !== page && (
-              <button
-                className={`btn ${
+              <Button
+                className={`${
                   currentPage == page ? "btn-primary" : "btn-light "
                 }`}
                 onClick={() => {
@@ -90,20 +81,14 @@ function Pagination({ total, currentPage, setCurrentPage }: PaginationProps) {
                 }}
               >
                 {page}
-              </button>
+              </Button>
             )}
-            <button
-              className={`btn btn-light`}
-              onClick={() => {
-                setCurrentPage(currentPage + 1);
-                if (startPage + 6 < page) {
-                  setStartPage(startPage + 1);
-                }
-              }}
+            <Button
+              className="btn-light"
+              onClick={() => handleNextPage(6)}
               disabled={page == currentPage}
-            >
-              <i className="bi bi-chevron-right"></i>
-            </button>
+              icon="rightArrow"
+            />
           </div>
         )}
       </div>
