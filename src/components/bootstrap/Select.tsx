@@ -1,13 +1,6 @@
-import React from "react";
+import { SelectPropsType } from "../../interfaces/SpaceFlightInterface";
 
-interface SelectProps {
-  name: string;
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  list: { value: string; name: string }[];
-  label: string;
-}
-
-function Select({ name, onChange, list, label }: SelectProps) {
+function Select({ name, onChange, list, label }: SelectPropsType) {
   return (
     <select className="form-select" onChange={onChange} name={name}>
       <option value="">{label}</option>

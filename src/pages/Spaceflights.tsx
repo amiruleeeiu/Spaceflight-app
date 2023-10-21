@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
+import Footer from "../components/Footer";
 import Pagination from "../components/Pagination";
 import SpaceFlight from "../components/SpaceFlight";
 import Button from "../components/bootstrap/Button";
@@ -20,18 +21,20 @@ const searchFieldsName: searchFieldsInterface = {
 };
 
 function Spaceflights() {
-  const [spaceflights, setSpaceflights] = useState([]);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { loader, allSpaceFlights }: any = useContext(SpaceFlightContext);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [searchFields, setSearchFields] = useState(searchFieldsName);
+  const [spaceflights, setSpaceflights] = useState<SpaceFlightInterface[]>([]);
+  const { loader, allSpaceFlights } =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    useContext<any>(SpaceFlightContext);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [total, setTotal] = useState<number>(0);
+  const [searchFields, setSearchFields] =
+    useState<searchFieldsInterface>(searchFieldsName);
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
-    let filteredSpaceflights = allSpaceFlights;
+    let filteredSpaceflights: SpaceFlightInterface[] | [] = allSpaceFlights;
 
     const { launch_status, launch_date, upcoming, rocket_name } = searchFields;
 
@@ -147,7 +150,7 @@ function Spaceflights() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let content = null;
+  let content: null | React.ReactElement | React.ReactElement[] = null;
 
   if (loader) {
     content = (
@@ -230,11 +233,7 @@ function Spaceflights() {
         setCurrentPage={setCurrentPage}
       />
 
-      <footer className="my-5">
-        <p className="text-center">
-          Created by the brilliant minds behind SpaceX
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

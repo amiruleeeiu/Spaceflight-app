@@ -18,7 +18,7 @@ const SpaceFlightContextProvider: React.FC<SpaceFlightContextProviderProps> = ({
   const [allSpaceFlights, setAllSpaceFlights] = useState<
     SpaceFlightInterface[]
   >([]);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState<boolean>(false);
 
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL as string;
 

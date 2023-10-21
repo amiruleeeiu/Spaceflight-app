@@ -41,3 +41,15 @@ export interface ButtonPropsType {
   className?: string;
   children?: string | number;
 }
+
+export interface SelectPropsType {
+  name: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  list: { value: string; name: string }[];
+  label: string;
+}
+
+export interface contextInterface {
+  loader: boolean;
+  allSpaceFlights: SpaceFlightInterface;
+}

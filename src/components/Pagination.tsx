@@ -7,11 +7,11 @@ function Pagination({
   currentPage,
   setCurrentPage,
 }: PaginationPropsType) {
-  const page = Math.ceil(total / 9);
+  const page: number = Math.ceil(total / 9);
 
-  const buttonElements = [];
+  const buttonElements: React.ReactElement[] = [];
 
-  const [startPage, setStartPage] = useState(1);
+  const [startPage, setStartPage] = useState<number>(1);
 
   for (let i = startPage; i <= (total >= 6 * 9 ? startPage + 5 : page); i++) {
     buttonElements.push(
